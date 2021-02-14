@@ -30,7 +30,18 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    security.encryption.sodium:
+        class: Symfony\Component\Encryption\Sodium\SodiumEncryption
+
+    security.encryption.phpseclib:
+        class: Symfony\Component\Encryption\Phpseclib\PhpseclibEncryption
+
+    Symfony\Component\Encryption\EncryptionInterface: '@security.encryption.sodium'
+
     App\EventListener\UserDataEncryptor:
+        arguments:
+            $applicationSecret: '%kernel.secret%'
+
         tags:
             -
                 name: 'doctrine.orm.entity_listener'

@@ -7,11 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table
+ * @ORM\Table(name="`user`")
  */
 class User
 {
     /**
+     * @var int
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -37,6 +38,11 @@ class User
     {
         $this->username = $username;
         $this->email = $email;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getUsername(): string
